@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>穿搭暗号约稿 · 二次元专场</title>
+<style>
+  :root {
+    --pink: #F8CCDB;
+    --pink-deep: #F0B5C8;
+    --pink-soft: #FDEEF3;
+    --grey: #9FA2A6;
+    --grey-deep: #7F8388;
+    --grey-light: #EEF1F0;
+    --grey-soft: #F6F7F7;
+    --bg: #FEFDF8;
+    --ink: #1A1A1A;
+    --ink-soft: #2A2A2E;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--ink-soft);
+    line-height: 1.6;
+    font-size: 14px;
+  }
+  .page {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* 背景爱心（漂浮） */
+  .bg-bow {
+    position: absolute;
+    color: #FFF;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 6px rgba(248, 204, 219, 0.7));
+  }
+  .hero .decor svg, .hero .bow-inline svg { fill: #FFFFFF !important; stroke: rgba(159, 162, 166, 0.35) !important; stroke-width: 2 !important; }
+  .footer .bow-inline svg { fill: var(--pink) !important; stroke: none !important; }
+  .section .bow-title svg, h3.subhead .bow-inline svg { fill: var(--pink) !important; stroke: none !important; }
+  .bg-bow svg { display: block; width: 100%; height: 100%; }
+  .bow-inline svg { width: 100%; height: 100%; display: inline-block; }
+  .bow-title svg { width: 100%; height: 100%; display: inline-block; }
+  .decor svg { width: 100%; height: 100%; display: block; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 100%);
+    border-radius: 26px;
+    padding: 40px 34px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(255, 209, 219, 0.4);
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.7);
+    color: var(--ink);
+    padding: 4px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .hero-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0 0 20px;
+    letter-spacing: 1px;
+    display: flex; align-items: center; gap: 12px;
+    line-height: 1.2;
+  }
+  .hero-title .bow-inline { display: inline-block; width: 42px; height: 38px; color: #fff; vertical-align: middle; overflow: hidden; }
+  .hero-quote {
+    background: rgba(255,255,255,0.55);
+    border: 1.5px dashed rgba(255,255,255,0.95);
+    border-radius: 18px;
+    padding: 20px 22px;
+    color: var(--ink);
+    font-size: 14.5px;
+    line-height: 1.85;
+  }
+  .hero-quote p { margin: 0 0 4px; }
+  .hero-quote .key {
+    background: linear-gradient(180deg, transparent 55%, #fff 55%);
+    padding: 0 3px;
+    font-weight: 700;
+  }
+  .hero .decor { position: absolute; color: #fff; }
+
+  /* SECTION */
+  .section {
+    background: #fff;
+    border-radius: 22px;
+    padding: 28px 28px;
+    margin-top: 24px;
+    box-shadow: 0 4px 16px rgba(255, 209, 219, 0.25);
+    position: relative;
+    overflow: hidden;
+  }
+  .section-head {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 18px;
+  }
+  .section-num {
+    width: 30px; height: 30px;
+    background: var(--grey-deep); color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+  }
+  .section-title {
+    margin: 0;
+    font-size: 20px; font-weight: 800; color: var(--ink);
+    display: flex; align-items: center; gap: 8px;
+    letter-spacing: 0.5px;
+  }
+  .bow-title { display: inline-block; width: 24px; height: 20px; color: var(--pink-deep); vertical-align: middle; overflow: hidden; }
+
+  /* rules list */
+  .rules-list { list-style: none; padding: 0; margin: 0; }
+  .rules-list li {
+    padding: 12px 16px;
+    background: var(--pink-soft);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--pink);
+  }
+  .rules-list li:last-child { margin-bottom: 0; }
+  .rules-list li .k {
+    color: var(--ink);
+    font-weight: 700;
+    margin-right: 4px;
+  }
+
+  .return-link {
+    background: var(--grey-deep);
+    color: #fff;
+    padding: 14px 18px;
+    border-radius: 14px;
+    margin-top: 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .return-link .label { font-weight: 700; }
+  .return-link a {
+    background: var(--pink);
+    color: var(--ink);
+    padding: 6px 16px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .return-link a:hover { background: #fff; color: var(--ink); }
+
+  .tag {
+    display: inline-block;
+    background: var(--grey-deep); color: #fff;
+    padding: 2px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0 3px;
+  }
+
+  h3.subhead {
+    font-size: 15px;
+    color: var(--ink);
+    margin: 22px 0 12px;
+    font-weight: 700;
+    display: flex; align-items: center; gap: 6px;
+  }
+  h3.subhead .bow-inline { display: inline-block; width: 20px; height: 16px; color: var(--pink-deep); overflow: hidden; }
+
+  /* direction */
+  .direction {
+    margin-top: 22px;
+    border-top: 2px dashed var(--grey-light);
+    padding-top: 20px;
+  }
+  .direction:first-of-type { border-top: none; padding-top: 0; }
+  .dir-head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 14px;
+  }
+  .dir-badge {
+    background: var(--pink); color: var(--ink);
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px;
+  }
+  .dir-title { font-size: 16px; font-weight: 800; color: var(--ink); }
+
+  .topic-grid {
+    display: grid; grid-template-columns: 1fr; gap: 16px;
+  }
+  .topic-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+
+  .topic-card {
+    background: var(--grey-light);
+    border-radius: 14px;
+    padding: 16px 18px;
+    position: relative;
+  }
+  .topic-tag {
+    display: inline-block;
+    background: var(--grey-deep); color: #fff;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 12px; font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .row { margin-bottom: 10px; }
+  .row:last-child { margin-bottom: 0; }
+  .row-label {
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .row-value {
+    color: var(--ink-soft);
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+  .row-value ol { padding-left: 20px; margin: 4px 0; }
+  .row-value ol li { margin-bottom: 3px; }
+
+  /* refs */
+  .refs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 160px));
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: start;
+  }
+  .ref-card {
+    display: block;
+    text-decoration: none;
+    background: #fff;
+    border: 1.5px solid var(--pink);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.15s, box-shadow 0.15s;
+    color: var(--ink-soft);
+  }
+  .ref-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 200, 215, 0.5);
+    border-color: var(--pink-deep);
+  }
+  .ref-card .cover {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--grey-soft) center/cover no-repeat;
+    position: relative;
+    overflow: hidden;
+  }
+  .ref-card .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ref-card .cover .badge {
+    position: absolute; top: 6px; left: 6px;
+    background: var(--grey-deep); color: #fff;
+    padding: 2px 6px; border-radius: 4px;
+    font-size: 10px; font-weight: 600;
+  }
+  .ref-card .cap {
+    padding: 8px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #444;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 42px;
+  }
+  .ref-card .cover.cover-broken {
+    display: flex; align-items: center; justify-content: center;
+    color: #999; font-size: 11px;
+  }
+  .ref-card .cover.cover-broken::before { content: "封面加载失败"; }
+  .ref-empty {
+    padding: 20px; color: #999; font-size: 12px; text-align: center;
+    background: #fff;
+    border-radius: 8px;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 30px 0 10px;
+    color: #999;
+    font-size: 12.5px;
+  }
+  .footer .bow-inline { display: inline-block; width: 18px; height: 14px; color: var(--pink-deep); vertical-align: middle; margin: 0 6px; overflow: hidden; }
+
+  @media (max-width: 640px) {
+    .page { padding: 20px 14px 40px; }
+    .hero { padding: 32px 22px; border-radius: 22px; }
+    .hero-title { font-size: 24px; }
+    .section { padding: 22px 18px; border-radius: 18px; }
+    .topic-grid.cols-2 { grid-template-columns: 1fr; }
+    .refs { grid-template-columns: repeat(auto-fill, minmax(110px, 140px)); }
+    .return-link { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 背景爱心（漂浮） -->
+  <div class="bg-bow" style="top: 130px; right: 6px; width: 100px; height: 90px; transform: rotate(-15deg); opacity: 1;"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></div>
+  <div class="bg-bow" style="top: 420px; left: 4px; width: 80px; height: 72px; transform: rotate(18deg); opacity: 1;"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></div>
+  <div class="bg-bow" style="top: 900px; right: 14px; width: 90px; height: 81px; transform: rotate(-8deg); opacity: 1;"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></div>
+  <div class="bg-bow" style="top: 1400px; left: 6px; width: 85px; height: 76px; transform: rotate(12deg); opacity: 1;"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></div>
+  <div class="bg-bow" style="top: 1900px; right: 2px; width: 95px; height: 85px; transform: rotate(-18deg); opacity: 1;"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></div>
+  <div class="bg-bow" style="top: 2450px; left: 8px; width: 78px; height: 70px; transform: rotate(20deg); opacity: 1;"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></div>
+  <div class="bg-bow" style="top: 3000px; right: 8px; width: 88px; height: 79px; transform: rotate(-10deg); opacity: 1;"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></div>
+  <div class="bg-bow" style="top: 3550px; left: 4px; width: 82px; height: 74px; transform: rotate(15deg); opacity: 1;"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="decor" style="top: 16px; right: 24px; width: 90px; height: 81px; opacity: 0.85;"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></div>
+    <div class="decor" style="bottom: 16px; left: 18px; width: 54px; height: 48px; opacity: 0.7;"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></div>
+    <div class="decor" style="top: 42%; right: 10%; width: 34px; height: 30px; opacity: 0.6;"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></div>
+
+    <span class="hero-tag">穿搭暗号 · 二次元专场</span>
+    <h1 class="hero-title">
+      <span class="bow-inline"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></span>
+      穿搭暗号对一下
+    </h1>
+    <div class="hero-quote">
+      <p>穿搭是同好间独一无二的暗号</p>
+      <p>你担/你推如何影响了你的穿搭，</p>
+      <p>你又如何把它内化成自己的风格——</p>
+      <p>答案就在你每天穿在身上的细节里。</p>
+      <p>把自己迷恋的东西穿出门，</p>
+      <p>和同好<strong> <span class="key">#穿搭暗号对一下</span></strong></p>
+      <p style="margin-top:10px;">投稿优质内容将获单条曝光 5-50w 的专项推流，还有机会加码平台宣传资源。</p>
+    </div>
+  </div>
+
+  <!-- 一、投稿激励 -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">01</div>
+      <h2 class="section-title">一、投稿激励 <span class="bow-title"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></span></h2>
+    </div>
+
+    <ul class="rules-list">
+      <li><span class="k">单条笔记推流：</span>内容将获单条曝光 5-50w 的专项推流</li>
+      <li><span class="k">热点提报：</span>将根据原创内容质量、笔记热度、活动主题度综合评选提报热门</li>
+      <li><span class="k">话题置顶：</span>将根据内容质量pick优质稿件做#穿搭暗号对一下 话题下 2-10位置顶干预</li>
+      <li><span class="k">活动页面展示：</span>活动 50w+UV 曝光笔记展示</li>
+    </ul>
+
+    <div class="return-link">
+      <span class="label">✎ 返稿link</span>
+      <a href="https://doc.weixin.qq.com/forms/ANAAyQcbAAgAaYAdwYSAHcCNxjY7m1yFf?page=1" target="_blank">收集表</a>
+    </div>
+  </div>
+
+  <!-- 二、约稿要求 -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">02</div>
+      <h2 class="section-title">二、约稿要求 <span class="bow-title"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></span></h2>
+    </div>
+
+    <h3 class="subhead"><span class="bow-inline"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></span>1、发布要求</h3>
+    <ul class="rules-list">
+      <li><span class="k">主题：</span>讲述你是如何结合二次元/追星灵感，演绎灵感穿搭</li>
+      <li><span class="k">时间：</span>即日起-7月27日</li>
+      <li><span class="k">必带话题：</span><span class="tag">#穿搭暗号对一下</span></li>
+      <li><span class="k">根据圈层选带：</span><span class="tag">#我担同款</span>（追星）or <span class="tag">#自搭出街</span>（二次元）</li>
+      <li><span class="k">标题格式：</span><strong style="color:var(--ink);">穿搭暗号｜xxxxxxxxxxxx</strong></li>
+    </ul>
+
+    <h3 class="subhead"><span class="bow-inline"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></span>2、内容方向</h3>
+
+    <!-- 方向 A：二次元灵感穿搭 -->
+    <div class="direction">
+      <div class="dir-head">
+        <span class="dir-badge">A</span>
+        <div class="dir-title">二次元灵感穿搭</div>
+      </div>
+
+      <div class="topic-grid cols-2">
+        <div class="topic-card">
+          <span class="topic-tag">选题一：角色灵感穿搭</span>
+          <div class="row">
+            <div class="row-label">✎ 整体vibe</div>
+            <div class="row-value">动漫角色也是穿搭灵感的来源！单品或整套穿搭和动漫角色感觉神似，日常穿搭也有动漫感，爱好让穿搭更有趣!</div>
+          </div>
+          <div class="row">
+            <div class="row-label">✎ 内容重点</div>
+            <div class="row-value">
+              <ol>
+                <li>标题需带「（角色名）灵感穿搭」</li>
+                <li>抓住角色的标志性元素做印象搭配（配色、单品符号、廓形、氛围）。</li>
+                <li>视频上需标注是个角色 / 哪部作品的灵感</li>
+                <li>可以直接展示穿搭，或介绍搭配逻辑</li>
+              </ol>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row-label">✎ 参考示例</div>
+            <div class="row-value">
+<div class="refs">
+  <a class="ref-card" href="https://www.xiaohongshu.com/explore/697ee941000000001a02e5a7" target="_blank" rel="noopener">
+    <div class="cover">
+      <img src="assets/697ee941000000001a02e5a7.jpg" alt="yeeehaw!🤠 波提欧印象穿搭" loading="lazy" onerror="this.parentElement.classList.add('cover-broken');this.remove()"/>
+      <span class="badge">参考1</span>
+    </div>
+    <div class="cap">yeeehaw!🤠 波提欧印象穿搭</div>
+  </a>
+  <a class="ref-card" href="https://www.xiaohongshu.com/explore/6a15b1610000000035023ff6" target="_blank" rel="noopener">
+    <div class="cover">
+      <img src="assets/6a15b1610000000035023ff6.jpg" alt="永远喜欢凛凛蝶感的穿搭" loading="lazy" onerror="this.parentElement.classList.add('cover-broken');this.remove()"/>
+      <span class="badge">参考2</span>
+    </div>
+    <div class="cap">永远喜欢凛凛蝶感的穿搭</div>
+  </a>
+  <a class="ref-card" href="https://www.xiaohongshu.com/explore/6a326aac00000000060334f5" target="_blank" rel="noopener">
+    <div class="cover">
+      <img src="assets/6a326aac00000000060334f5.jpg" alt="飞天小女警灵感穿搭🎀花花是真人穿什么🫧" loading="lazy" onerror="this.parentElement.classList.add('cover-broken');this.remove()"/>
+      <span class="badge">参考3</span>
+    </div>
+    <div class="cap">飞天小女警灵感穿搭🎀花花是真人穿什么🫧</div>
+  </a>
+  <a class="ref-card" href="https://www.xiaohongshu.com/explore/6a1d0794000000003700e0b3" target="_blank" rel="noopener">
+    <div class="cover">
+      <img src="assets/6a1d0794000000003700e0b3.jpg" alt="一种很新的和服搭配思路…" loading="lazy" onerror="this.parentElement.classList.add('cover-broken');this.remove()"/>
+      <span class="badge">参考4</span>
+    </div>
+    <div class="cap">一种很新的和服搭配思路…</div>
+  </a>
+</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-tag">选题二：#宅萌穿搭</span>
+          <div class="row">
+            <div class="row-label">✎ 整体vibe</div>
+            <div class="row-value">打破宅宅就不时尚的刻板印象，用穿搭表达宅家娱乐和户外活动一样是一种爱好，宅男宅女也有自己的时尚风格！</div>
+          </div>
+          <div class="row">
+            <div class="row-label">✎ 内容重点</div>
+            <div class="row-value">
+              <ol>
+                <li>标题点明#宅萌穿搭</li>
+                <li>全面展示搭配</li>
+                <li>拍摄场景在室内</li>
+              </ol>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row-label">✎ 参考示例</div>
+            <div class="row-value">
+<div class="refs">
+  <a class="ref-card" href="https://www.xiaohongshu.com/explore/67278bdb000000003c01b6f6" target="_blank" rel="noopener">
+    <div class="cover">
+      <img src="assets/67278bdb000000003c01b6f6.jpg" alt="班上那个执着于叠加萌要素的土气阴暗宅" loading="lazy" onerror="this.parentElement.classList.add('cover-broken');this.remove()"/>
+      <span class="badge">参考1</span>
+    </div>
+    <div class="cap">班上那个执着于叠加萌要素的土气阴暗宅</div>
+  </a>
+  <a class="ref-card" href="https://www.xiaohongshu.com/explore/6a26a9200000000007011350" target="_blank" rel="noopener">
+    <div class="cover">
+      <img src="assets/6a26a9200000000007011350.jpg" alt="死宅" loading="lazy" onerror="this.parentElement.classList.add('cover-broken');this.remove()"/>
+      <span class="badge">参考2</span>
+    </div>
+    <div class="cap">死宅</div>
+  </a>
+  <a class="ref-card" href="https://www.xiaohongshu.com/explore/6a422b7d000000001503fc3c" target="_blank" rel="noopener">
+    <div class="cover">
+      <img src="assets/6a422b7d000000001503fc3c.jpg" alt="抱歉我就是个宅" loading="lazy" onerror="this.parentElement.classList.add('cover-broken');this.remove()"/>
+      <span class="badge">参考3</span>
+    </div>
+    <div class="cap">抱歉我就是个宅</div>
+  </a>
+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 方向 B：漫展常服 fit check -->
+    <div class="direction">
+      <div class="dir-head">
+        <span class="dir-badge">B</span>
+        <div class="dir-title">漫展常服 fit check</div>
+      </div>
+
+      <div class="topic-grid">
+        <div class="topic-card">
+          <span class="topic-tag">选题：漫展常服</span>
+          <div class="row">
+            <div class="row-label">✎ 整体vibe</div>
+            <div class="row-value">在二次元漫展场景出现的2.5次元穿搭，比全套 cos 更贴近日常，又比普通私服多一层梗和默契，每个人的搭配都在讲一个只有同好能接住的暗号。</div>
+          </div>
+          <div class="row">
+            <div class="row-label">✎ 内容重点</div>
+            <div class="row-value">
+              <ol>
+                <li>标题体现"漫展常服/漫展 fitcheck"这类关键词</li>
+                <li>场景要有漫展辨识度</li>
+                <li>可以做单人 fitcheck，也可以拍同好间的风格差异对比</li>
+                <li>强调"常服"而非全套 cos，突出日常可穿的二次元感搭配思路</li>
+              </ol>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row-label">✎ 参考示例</div>
+            <div class="row-value">
+<div class="refs">
+  <a class="ref-card" href="https://www.xiaohongshu.com/explore/668cfbb30000000003025927" target="_blank" rel="noopener">
+    <div class="cover">
+      <img src="assets/668cfbb30000000003025927.jpg" alt="去漫展不出cos怎么穿" loading="lazy" onerror="this.parentElement.classList.add('cover-broken');this.remove()"/>
+      <span class="badge">参考1</span>
+    </div>
+    <div class="cap">去漫展不出cos怎么穿</div>
+  </a>
+  <a class="ref-card" href="https://www.xiaohongshu.com/explore/6833e3a500000000220063d6" target="_blank" rel="noopener">
+    <div class="cover">
+      <img src="assets/6833e3a500000000220063d6.jpg" alt="去漫展和朋友们的穿搭是…" loading="lazy" onerror="this.parentElement.classList.add('cover-broken');this.remove()"/>
+      <span class="badge">参考2</span>
+    </div>
+    <div class="cap">去漫展和朋友们的穿搭是…</div>
+  </a>
+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 方向 C：对比转场 -->
+    <div class="direction">
+      <div class="dir-head">
+        <span class="dir-badge">C</span>
+        <div class="dir-title">对比转场</div>
+      </div>
+
+      <div class="topic-grid cols-2">
+        <div class="topic-card">
+          <span class="topic-tag">选题一：二次元穿搭走入现实</span>
+          <div class="row">
+            <div class="row-label">✎ 整体vibe</div>
+            <div class="row-value">那些看似"不寻常"的二次元穿搭，放到现实场景里其实也很好看！二次元赋予爱好者一套完整的审美体系，日常穿出来，照样成立。</div>
+          </div>
+          <div class="row">
+            <div class="row-label">✎ 内容重点</div>
+            <div class="row-value">
+              <ol>
+                <li>先在室内模仿模特展示效果</li>
+                <li>转场生活感重的室外场景（如马路/奶茶店）</li>
+                <li>室外部分尽量用手机+远处拍摄模仿路人视角</li>
+                <li>封面/标题带有"当二次元穿搭走入现实"</li>
+              </ol>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row-label">✎ 参考示例</div>
+            <div class="row-value">
+<div class="refs">
+  <a class="ref-card" href="https://www.xiaohongshu.com/explore/687e2056000000001d00ca9c" target="_blank" rel="noopener">
+    <div class="cover">
+      <img src="assets/687e2056000000001d00ca9c.jpg" alt="二次元去漫展逛街的常服🈶！！！太显腿长辽！！！ #小个子穿搭 #我在老家搞二次元 #二次元 #三坑少女 #可爱 #萌妹 #毛绒心跳" loading="lazy" onerror="this.parentElement.classList.add('cover-broken');this.remove()"/>
+      <span class="badge">参考1</span>
+    </div>
+    <div class="cap">二次元去漫展逛街的常服🈶！！！太显腿长辽！！！ #小个子穿搭 #我在老家搞二次元 #二次元 #三坑少女 #可爱 #萌妹 #毛绒心跳</div>
+  </a>
+</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="topic-card">
+          <span class="topic-tag">选题二：二次元真的在哪里都会被认出来吗？</span>
+          <div class="row">
+            <div class="row-label">✎ 整体vibe</div>
+            <div class="row-value">作为二次元，明明没有刻意往二次元风格穿搭，怎么会一眼就被认出来！穿搭已经被爱好"腌入味了"。</div>
+          </div>
+          <div class="row">
+            <div class="row-label">✎ 内容重点</div>
+            <div class="row-value">
+              <ol>
+                <li>标题类似「二次元真的在哪里都会被认出来吗？」</li>
+                <li>场景在日常路线（通勤、逛街、咖啡厅、地铁都可以），不要漫展</li>
+                <li>可以用转场展示"出cos时→ 私服"的反差</li>
+                <li>抓住让人一眼认出的关键单品或细节（配色、挂件、印花、小物）做特写</li>
+              </ol>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row-label">✎ 参考示例</div>
+            <div class="row-value">
+<div class="refs">
+  <a class="ref-card" href="https://www.xiaohongshu.com/explore/699c1068000000001d011861" target="_blank" rel="noopener">
+    <div class="cover">
+      <img src="assets/699c1068000000001d011861.jpg" alt="二次元真的走到哪都会被认出来吗？…" loading="lazy" onerror="this.parentElement.classList.add('cover-broken');this.remove()"/>
+      <span class="badge">参考1</span>
+    </div>
+    <div class="cap">二次元真的走到哪都会被认出来吗？…</div>
+  </a>
+  <a class="ref-card" href="https://www.xiaohongshu.com/explore/697ed2d7000000000a0331b7" target="_blank" rel="noopener">
+    <div class="cover">
+      <img src="assets/697ed2d7000000000a0331b7.jpg" alt="阿宅和现生朋友出门belike" loading="lazy" onerror="this.parentElement.classList.add('cover-broken');this.remove()"/>
+      <span class="badge">参考2</span>
+    </div>
+    <div class="cap">阿宅和现生朋友出门belike</div>
+  </a>
+  <a class="ref-card" href="https://www.xiaohongshu.com/explore/6503d1e9000000001d014efc" target="_blank" rel="noopener">
+    <div class="cover">
+      <img src="assets/6503d1e9000000001d014efc.jpg" alt="真的一眼二次元吗？" loading="lazy" onerror="this.parentElement.classList.add('cover-broken');this.remove()"/>
+      <span class="badge">参考3</span>
+    </div>
+    <div class="cap">真的一眼二次元吗？</div>
+  </a>
+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <span class="bow-inline"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></span> 穿搭暗号 · 二次元专场 <span class="bow-inline"><svg viewBox="0 0 100 90" fill="#FFFFFF" stroke="#F8CCDB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+  <path d="M50 82 C 22 60, 8 40, 8 24 C 8 12, 20 6, 30 6 C 40 6, 46 12, 50 20 C 54 12, 60 6, 70 6 C 80 6, 92 12, 92 24 C 92 40, 78 60, 50 82 Z"/>
+</svg></span>
+  </div>
+
+</div>
+</body>
+</html>
